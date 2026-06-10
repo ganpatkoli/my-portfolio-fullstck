@@ -62,6 +62,7 @@ app.use(
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "https://my-portfolio-fullstack-woad.vercel.app",
+        "https://apis.appmitra.org/"
       ];
       const isAllowed =
         allowedOrigins.includes(origin) || origin.endsWith(".vercel.app");
