@@ -477,4 +477,9 @@ if (!process.env.VERCEL) {
   });
 }
 
+app.get("/api/test", async (req, res) => {
+  res.send("Hello World")
+});
+
+
 export default app;
