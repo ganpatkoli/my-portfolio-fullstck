@@ -57,20 +57,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "super-secure-portfolio-jwt-secret-
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      const allowedOrigins = [
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "https://my-portfolio-fullstack-woad.vercel.app",
-        "https://apis.appmitra.org/"
-      ];
-      const isAllowed =
-        allowedOrigins.includes(origin) || origin.endsWith(".vercel.app");
-      if (isAllowed) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
+      // Allow all origins dynamically (required when credentials is true)
+      callback(null, true);
     },
     credentials: true,
   })
