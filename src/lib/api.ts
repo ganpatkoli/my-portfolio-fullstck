@@ -1,4 +1,1 @@
-export const API_BASE = import.meta.env.DEV
-  ? "http://localhost:5000/api"
-  : "/api";
-
+export const API_BASE = "http://62.72.13.242:4000/api";
