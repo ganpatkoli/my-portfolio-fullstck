@@ -1,0 +1,56 @@
+[
+  {
+    "line_num": 261,
+    "step_index": 269,
+    "type": "VIEW_FILE",
+    "len": 4120
+  },
+  {
+    "line_num": 273,
+    "step_index": 282,
+    "type": "VIEW_FILE",
+    "len": 4120
+  },
+  {
+    "line_num": 389,
+    "step_index": 398,
+    "type": "VIEW_FILE",
+    "len": 4120
+  },
+  {
+    "line_num": 390,
+    "step_index": 399,
+    "type": "PLANNER_RESPONSE",
+    "len": 0
+  },
+  {
+    "line_num": 1004,
+    "step_index": 1015,
+    "type": "VIEW_FILE",
+    "len": 4120
+  },
+  {
+    "line_num": 1044,
+    "step_index": 1056,
+    "type": "VIEW_FILE",
+    "len": 4120
+  },
+  {
+    "line_num": 1234,
+    "step_index": 1257,
+    "type": "RUN_COMMAND",
+    "len": 4119
+  },
+  {
+    "line_num": 1281,
+    "step_index": 1305,
+    "type": "RUN_COMMAND",
+    "len": 4120
+  },
+  {
+    "line_num": 1286,
+    "step_index": 1310,
+    "type": "PLANNER_RESPONSE",
+    "len": 0
+  }
+]

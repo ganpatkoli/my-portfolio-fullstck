@@ -1,0 +1,93 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.275 841.889] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 1983 >>
+stream
+BT
+/F1 22 Tf
+50 780 Td
+(Ganpat Koli - Resume) Tj
+0 -26 Td
+/F1 12 Tf
+(Front-End Developer) Tj
+0 -22 Td
+(Location: Indore, Madhya Pradesh, India) Tj
+0 -15 Td
+(Profiles: github.com/ganpatkoli  |  linkedin.com/in/ganpatkoli) Tj
+0 -15 Td
+(Contact: Email & Phone available upon request via LinkedIn or GitHub) Tj
+0 -30 Td
+/F1 14 Tf
+(PROFESSIONAL SUMMARY) Tj
+0 -18 Td
+/F1 10 Tf
+(Front-End Developer at P&P Infotech with 4+ years of experience building high-performance,) Tj
+0 -12 Td
+(responsive React applications, customized trading charts, and secure document signing systems.) Tj
+0 -24 Td
+/F1 14 Tf
+(PROFESSIONAL EXPERIENCE) Tj
+0 -18 Td
+/F1 11 Tf
+(P&P Infotech - Front-End Developer  [December 2021 - Present]) Tj
+0 -15 Td
+/F1 10 Tf
+(- SMART-ALGO (v-2.0): Engineered algorithmic option chain and strategy builder. Built modular) Tj
+0 -12 Td
+(  user interfaces, preset themes, and achieved 3x rendering speed increase via DOM rendering audits.) Tj
+0 -14 Td
+(- COPY TRADING: Constructed low-latency trade replication system connecting Master and Child client portals.) Tj
+0 -14 Td
+(- E-SIGN: Developed secure document signature platform integrated with SurePass API for KYC.) Tj
+0 -14 Td
+(- SERVICE-VAULT: Programmed localized workflow management dashboard supporting multiple languages.) Tj
+0 -14 Td
+(- SMART-ALGO (v-1.0): Designed stock price trigger indicator systems for automatic trade execution.) Tj
+0 -26 Td
+/F1 14 Tf
+(TECHNICAL SKILLS) Tj
+0 -18 Td
+/F1 10 Tf
+(Languages & Core: ReactJS, Redux, Redux-Toolkit, JavaScript, HTML5, CSS3) Tj
+0 -14 Td
+(UI Frameworks: Tailwind CSS, Bootstrap 4/5, Responsive Grid Layouts) Tj
+0 -14 Td
+(Back-End & Databases: Node.js (Familiar), MongoDB, MySQL, Redis, WebSockets) Tj
+0 -14 Td
+(Tools & Services: SurePass API, Broker APIs, Git, GitHub, Postman, Thunder Client) Tj
+0 -26 Td
+/F1 14 Tf
+(EDUCATION) Tj
+0 -18 Td
+/F1 11 Tf
+(Bachelor of Computer Application (BCA)) Tj
+0 -14 Td
+/F1 10 Tf
+(Seeta Devi College (Bhilwara)  -  Graduated July 2019) Tj
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+xref
+0 6
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000249 00000 n 
+0000002284 00000 n 
+trailer
+<< /Size 6 /Root 1 0 R >>
+startxref
+2354
+%%EOF
