@@ -1,1 +1,1 @@
-export const API_BASE = "http://apis.appmitra.org/api";
+export const API_BASE = "https://apis.appmitra.org/api";
