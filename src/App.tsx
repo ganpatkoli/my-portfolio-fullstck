@@ -12,14 +12,14 @@ import { TechStackSection } from "./components/TechStackSection";
 import { FollowerPointerCard } from "./components/ui/following-pointer";
 import { BackgroundGraphics } from "./components/ui/background-graphics";
 import { AdminPanel } from "./components/AdminPanel";
-import { StayConnectedSection } from "./components/StayConnectedSection";
-import { API_BASE } from "./lib/api";
+// import { StayConnectedSection } from "./components/StayConnectedSection";
+// import { API_BASE } from "./lib/api";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
 
-  const [socials, setSocials] = useState<any[]>([]);
+  // const [socials, setSocials] = useState<any[]>([]);
 
   useEffect(() => {
     const root = window.document.documentElement;
@@ -32,14 +32,14 @@ function App() {
     window.addEventListener("popstate", handleLocationChange);
 
     // Fetch socials for footer
-    fetch(`${API_BASE}/socials`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setSocials(data);
-        }
-      })
-      .catch((err) => console.error("Failed to fetch socials in App:", err));
+  //   fetch(`${API_BASE}/socials`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (Array.isArray(data)) {
+  //         setSocials(data);
+  //       }
+  //     })
+  //     .catch((err) => console.error("Failed to fetch socials in App:", err));
 
     return () => window.removeEventListener("popstate", handleLocationChange);
   }, []);
