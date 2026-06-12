@@ -136,6 +136,7 @@ export const HeroSection = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
   const [socials, setSocials] = useState<any[]>([]);
+  const [cvUrl, setCvUrl] = useState<string>("/Ganpat_Koli_Resume.pdf");
 
   useEffect(() => {
     fetch(`${API_BASE}/socials`)
@@ -146,6 +147,15 @@ export const HeroSection = () => {
         }
       })
       .catch((err) => console.error("Failed to fetch socials in Hero:", err));
+
+    fetch(`${API_BASE}/cv`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data && data.url) {
+          setCvUrl(data.url);
+        }
+      })
+      .catch((err) => console.error("Failed to fetch CV in Hero:", err));
   }, []);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -248,7 +258,9 @@ export const HeroSection = () => {
               <motion.a
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                href="/Ganpat_Koli_Resume.pdf"
+                href={cvUrl}
+                target="_blank"
+                rel="noopener noreferrer"
                 download="Ganpat_Koli_Resume.pdf"
                 className="w-full sm:w-auto px-8 py-4 bg-neutral-900/50 backdrop-blur-sm border border-neutral-800 hover:bg-neutral-800/60 text-white font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-all duration-300"
               >

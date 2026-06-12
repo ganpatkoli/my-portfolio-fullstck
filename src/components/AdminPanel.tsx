@@ -14,11 +14,12 @@ import {
   User as UserIcon,
   CheckCircle,
   AlertTriangle,
-  Share2
+  Share2,
+  FileText
 } from "lucide-react";
 import { API_BASE } from "../lib/api";
 
-type Tab = "projects" | "services" | "tech" | "experience" | "testimonials" | "messages" | "socials";
+type Tab = "projects" | "services" | "tech" | "experience" | "testimonials" | "messages" | "socials" | "cv";
 
 export const AdminPanel: React.FC = () => {
   const [token, setToken] = useState<string | null>(localStorage.getItem("portfolio_token"));
@@ -38,9 +39,11 @@ export const AdminPanel: React.FC = () => {
   const [testimonialsList, setTestimonialsList] = useState<any[]>([]);
   const [messagesList, setMessagesList] = useState<any[]>([]);
   const [socialsList, setSocialsList] = useState<any[]>([]);
+  const [activeCvUrl, setActiveCvUrl] = useState<string>("/Ganpat_Koli_Resume.pdf");
   
   // Loading states
   const [loading, setLoading] = useState(false);
+  const [uploadingCv, setUploadingCv] = useState(false);
   const [actionMessage, setActionMessage] = useState<{ text: string; type: "success" | "error" } | null>(null);
 
   // Form states (Add/Edit)
@@ -79,6 +82,25 @@ export const AdminPanel: React.FC = () => {
 
   const loadTabData = () => {
     setLoading(true);
+    if (activeTab === "cv") {
+      fetch(`${API_BASE}/cv`)
+        .then(res => {
+          if (!res.ok) throw new Error();
+          return res.json();
+        })
+        .then(data => {
+          if (data && data.url) {
+            setActiveCvUrl(data.url);
+          }
+        })
+        .catch(err => {
+          console.error("Failed to load CV:", err);
+          showActionMessage("Failed to load current CV data", "error");
+        })
+        .finally(() => setLoading(false));
+      return;
+    }
+
     fetch(`${API_BASE}/${activeTab}`, {
       headers: activeTab === "messages" ? { Authorization: `Bearer ${token}` } : {}
     })
@@ -185,6 +207,38 @@ export const AdminPanel: React.FC = () => {
       showActionMessage(err.message || "Failed to upload.", "error");
     } finally {
       setUploadingImages(false);
+      e.target.value = "";
+    }
+  };
+
+  const handleCvUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    
+    setUploadingCv(true);
+    const file = e.target.files[0];
+    const uploadFormData = new FormData();
+    uploadFormData.append("cv", file);
+    
+    try {
+      const res = await fetch(`${API_BASE}/cv/upload`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        body: uploadFormData
+      });
+      
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || "CV Upload failed");
+      }
+      
+      setActiveCvUrl(data.url);
+      showActionMessage("CV uploaded successfully!", "success");
+    } catch (err: any) {
+      showActionMessage(err.message || "Failed to upload CV.", "error");
+    } finally {
+      setUploadingCv(false);
       e.target.value = "";
     }
   };
@@ -460,7 +514,7 @@ export const AdminPanel: React.FC = () => {
             Collections
           </span>
           
-          {(["projects", "services", "tech", "experience", "testimonials", "messages", "socials"] as const).map(tab => {
+          {(["projects", "services", "tech", "experience", "testimonials", "messages", "socials", "cv"] as const).map(tab => {
             const getIconComponent = () => {
               if (tab === "projects") return <FolderGit2 size={15} />;
               if (tab === "services") return <Layers size={15} />;
@@ -468,6 +522,7 @@ export const AdminPanel: React.FC = () => {
               if (tab === "experience") return <Briefcase size={15} />;
               if (tab === "testimonials") return <Quote size={15} />;
               if (tab === "socials") return <Share2 size={15} />;
+              if (tab === "cv") return <FileText size={15} />;
               return <MessageSquare size={15} />;
             };
             
@@ -488,7 +543,7 @@ export const AdminPanel: React.FC = () => {
                 }`}
               >
                 {getIconComponent()}
-                <span>{tab}</span>
+                <span>{tab === "cv" ? "CV / Resume" : tab}</span>
               </button>
             );
           })}
@@ -513,16 +568,18 @@ export const AdminPanel: React.FC = () => {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.06] pb-5 select-none">
             <div>
               <h2 className="text-xl font-extrabold tracking-tight capitalize flex items-center gap-2">
-                {activeTab} Management
+                {activeTab === "cv" ? "CV / Resume" : activeTab} Management
               </h2>
               <p className="text-xs text-neutral-400 mt-1.5 leading-relaxed">
                 {activeTab === "messages" 
                   ? "View and clean client form submissions recorded directly in database." 
+                  : activeTab === "cv"
+                  ? "Upload and update your dynamic PDF/DOC/DOCX resume file."
                   : `Add, edit, or delete items from the ${activeTab} collection.`}
               </p>
             </div>
             
-            {activeTab !== "messages" && !isFormOpen && (
+            {activeTab !== "messages" && activeTab !== "cv" && !isFormOpen && (
               <button 
                 onClick={openAddForm}
                 className="flex items-center justify-center gap-1.5 px-5 py-2.5 rounded-xl bg-violet-600 text-white font-bold text-xs hover:bg-violet-500 hover:shadow-[0_0_15px_rgba(109,40,217,0.4)] transition-all cursor-pointer"
@@ -949,6 +1006,66 @@ export const AdminPanel: React.FC = () => {
             
             <div className="w-full bg-neutral-950/20 border border-white/[0.06] rounded-2xl overflow-hidden backdrop-blur-xl shadow-xl select-none">
               
+              {/* ─── CV Management View ─── */}
+              {activeTab === "cv" && (
+                <div className="p-6 md:p-8 space-y-6">
+                  <div className="bg-white/[0.02] border border-white/[0.06] rounded-2xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-bold text-white">Active CV Document</h4>
+                      <p className="text-xs text-neutral-450">This file is currently downloaded when visitors click "Download CV" on the homepage.</p>
+                      <div className="pt-2 flex items-center gap-2">
+                        <span className="p-2 rounded-xl bg-violet-500/10 border border-violet-500/20 text-violet-400">
+                          <FileText size={18} />
+                        </span>
+                        <a 
+                          href={activeCvUrl} 
+                          target="_blank" 
+                          rel="noreferrer" 
+                          className="text-xs font-mono text-violet-400 hover:underline break-all max-w-[280px] sm:max-w-md md:max-w-lg block font-bold"
+                        >
+                          {activeCvUrl}
+                        </a>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-3">
+                      <a 
+                        href={activeCvUrl} 
+                        download 
+                        className="px-4 py-2.5 rounded-xl border border-white/10 hover:bg-white/5 text-white text-xs font-bold transition-all text-center"
+                      >
+                        Test Download
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <label className="text-[10px] uppercase tracking-widest font-semibold text-neutral-400 font-mono">Upload New CV / Resume</label>
+                    <div className="relative border border-dashed border-white/20 rounded-2xl p-8 bg-white/[0.02] flex flex-col items-center justify-center gap-3 hover:bg-white/[0.04] transition-all cursor-pointer">
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={handleCvUpload}
+                        disabled={uploadingCv}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                      />
+                      {uploadingCv ? (
+                        <>
+                          <div className="w-8 h-8 border-3 border-violet-500/20 border-t-violet-500 rounded-full animate-spin" />
+                          <span className="text-xs text-neutral-400">Uploading resume to storage...</span>
+                        </>
+                      ) : (
+                        <>
+                          <FileText size={32} className="text-violet-500" />
+                          <span className="text-xs font-semibold text-neutral-350">Drag and drop or click to upload new resume</span>
+                          <span className="text-[10px] text-neutral-500 font-medium">Supports PDF, DOC, DOCX up to 10MB</span>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* ─── Projects List Table ─── */}
               {activeTab === "projects" && (
                 <div className="overflow-x-auto">

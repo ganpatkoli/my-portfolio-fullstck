@@ -80,6 +80,12 @@ const socialSchema = new mongoose.Schema({
   icon: { type: String }
 });
 
+// CV / Resume Model
+const cvSchema = new mongoose.Schema({
+  url: { type: String, required: true },
+  updatedAt: { type: Date, default: Date.now }
+});
+
 export const User = mongoose.model("User", userSchema);
 export const Project = mongoose.model("Project", projectSchema);
 export const Service = mongoose.model("Service", serviceSchema);
@@ -88,3 +94,4 @@ export const Experience = mongoose.model("Experience", experienceSchema);
 export const Testimonial = mongoose.model("Testimonial", testimonialSchema);
 export const Message = mongoose.model("Message", messageSchema);
 export const Social = mongoose.model("Social", socialSchema);
+export const Cv = mongoose.model("Cv", cvSchema);

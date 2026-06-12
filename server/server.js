@@ -9,7 +9,7 @@ import multer from "multer";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { User, Project, Service, Tech, Experience, Testimonial, Message, Social } from "./models.js";
+import { User, Project, Service, Tech, Experience, Testimonial, Message, Social, Cv } from "./models.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -456,6 +456,73 @@ app.delete("/api/socials/:id", authenticateToken, async (req, res) => {
     res.json({ message: "Social link deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+});
+
+// ============================================================================
+// CV / RESUME UPLOAD ROUTES
+// ============================================================================
+
+app.get("/api/cv", async (req, res) => {
+  try {
+    const cv = await Cv.findOne().sort({ updatedAt: -1 });
+    if (!cv) {
+      return res.json({ url: "/Ganpat_Koli_Resume.pdf" });
+    }
+    res.json(cv);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.post("/api/cv/upload", authenticateToken, upload.single("cv"), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+
+    const file = req.file;
+    const fileExtension = file.originalname.split(".").pop();
+    const filename = `cv-${Date.now()}.${fileExtension}`;
+    let url = "";
+
+    const bucketName = process.env.AWS_BUCKET_NAME;
+    if (s3Configured && s3Client) {
+      // Upload to S3
+      const uniqueKey = `cv/${filename}`;
+      const command = new PutObjectCommand({
+        Bucket: bucketName,
+        Key: uniqueKey,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+      });
+      await s3Client.send(command);
+      url = `https://${bucketName}.s3.${process.env.AWS_REGION || "us-east-1"}.amazonaws.com/${uniqueKey}`;
+    } else {
+      // Fallback to local uploads directory
+      const localPath = path.join(localUploadsDir, filename);
+      await fs.promises.writeFile(localPath, file.buffer);
+      const host = req.get("host") || `localhost:${PORT}`;
+      // Support proxy / production protocol detection
+      const protocol = req.headers["x-forwarded-proto"] || req.protocol || "http";
+      url = `${protocol}://${host}/uploads/${filename}`;
+    }
+
+    // Save or update CV in MongoDB
+    let cv = await Cv.findOne();
+    if (cv) {
+      cv.url = url;
+      cv.updatedAt = Date.now();
+      await cv.save();
+    } else {
+      cv = new Cv({ url });
+      await cv.save();
+    }
+
+    res.json({ message: "CV uploaded successfully", url });
+  } catch (error) {
+    console.error("CV upload error:", error);
+    res.status(500).json({ message: "Failed to upload CV", error: error.message });
   }
 });
 
