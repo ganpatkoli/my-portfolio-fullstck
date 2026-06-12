@@ -91,70 +91,70 @@ function App() {
 
 
 
-      <div className="relative min-h-screen w-full text-neutral-900 dark:text-neutral-100">
+        <div className="relative min-h-screen w-full text-neutral-900 dark:text-neutral-100">
 
-        {/* Global Animated Background Layer */}
-        <BackgroundGraphics />
+          {/* Global Animated Background Layer */}
+          <BackgroundGraphics />
 
-        {/* Floating Header Navbar */}
-        <Navbar />
+          {/* Floating Header Navbar */}
+          <Navbar />
 
-        {/* Main Single Page Sections */}
-        <main className="w-full">
-          {/* Home / Hero */}
-          <HeroSection />
+          {/* Main Single Page Sections */}
+          <main className="w-full">
+            {/* Home / Hero */}
+            <HeroSection />
 
-          {/* Services Section */}
-          <ServicesSection />
+            {/* Services Section */}
+            <ServicesSection />
 
-          {/* Technical Skills Portfolio */}
-          <TechStackSection />
+            {/* Technical Skills Portfolio */}
+            <TechStackSection />
 
-          {/* Featured Projects Grid */}
-          <ProjectsSection />
+            {/* Featured Projects Grid */}
+            <ProjectsSection />
 
-          {/* Scroll Linked Timeline for Experience */}
-          <ExperienceSection />
+            {/* Scroll Linked Timeline for Experience */}
+            <ExperienceSection />
 
-          {/* Infinite Scroll Testimonials */}
-          <TestimonialsSection />
+            {/* Infinite Scroll Testimonials */}
+            <TestimonialsSection />
 
-          {/* Social Links Section */}
-          <StayConnectedSection />
+            {/* Social Links Section */}
+            {/* <StayConnectedSection /> */}
 
-          {/* Available for Hire CTA */}
-          {/* <FreelanceSection /> */}
+            {/* Available for Hire CTA */}
+            {/* <FreelanceSection /> */}
 
-          {/* Contact Us Form */}
-          <ContactSection />
-        </main>
+            {/* Contact Us Form */}
+            <ContactSection />
+          </main>
 
-        {/* Premium Footer */}
-        <footer className="py-12  dark:bg-black border-t border-neutral-200 dark:border-neutral-900 text-center text-xs text-neutral-500">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p>© {new Date().getFullYear()} Ganpat Koli. All rights reserved.</p>
-            {socials.length > 0 && (
-              <p className="flex gap-4">
-                {socials.map((social) => (
-                  <a
-                    key={social._id}
-                    href={social.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-neutral-800 dark:hover:text-white transition-colors"
-                  >
-                    {social.name}
-                  </a>
-                ))}
-              </p>
-            )}
-          </div>
-        </footer>
+          {/* Premium Footer */}
+          <footer className="py-12  dark:bg-black border-t border-neutral-200 dark:border-neutral-900 text-center text-xs text-neutral-500">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
+              <p>© {new Date().getFullYear()} Ganpat Koli. All rights reserved.</p>
+              {socials.length > 0 && (
+                <p className="flex gap-4">
+                  {socials.map((social) => (
+                    <a
+                      key={social._id}
+                      href={social.link}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:text-neutral-800 dark:hover:text-white transition-colors"
+                    >
+                      {social.name}
+                    </a>
+                  ))}
+                </p>
+              )}
+            </div>
+          </footer>
 
 
 
-      </div >
-    </FollowerPointerCard>
+        </div >
+      </FollowerPointerCard>
     </>
   );
 }
