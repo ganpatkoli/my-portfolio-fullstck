@@ -131,9 +131,9 @@ function App() {
 
           {/* Premium Footer */}
           <footer className="py-12  dark:bg-black border-t border-neutral-200 dark:border-neutral-900 text-center text-xs text-neutral-500">
-            <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="max-w-7xl mx-auto px-6 md:px-12 flex flex-col md:flex-row items-center justify-center gap-4">
               <p>© {new Date().getFullYear()} Ganpat Koli. All rights reserved.</p>
-              {socials.length > 0 && (
+              {/* {socials.length > 0 && (
                 <p className="flex gap-4">
                   {socials.map((social) => (
                     <a
@@ -147,7 +147,7 @@ function App() {
                     </a>
                   ))}
                 </p>
-              )}
+              )} */}
             </div>
           </footer>
 
