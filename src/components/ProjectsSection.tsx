@@ -35,7 +35,7 @@ const GithubIcon = ({
   </svg>
 );
 
-const ProjectCarousel = ({ images }: { images: string[] }) => {
+export const ProjectCarousel = ({ images }: { images: string[] }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const prevSlide = (e: React.MouseEvent) => {
@@ -253,11 +253,16 @@ export const ProjectsSection = () => {
                   className="w-full max-w-lg bg-white dark:bg-neutral-900 rounded-2xl overflow-hidden shadow-2xl border border-neutral-200 dark:border-neutral-800 cursor-default"
                 >
                   {/* Banner Carousel */}
-                  {active.images && active.images.length > 0 && (
-                    <div className="relative aspect-video w-full border-b border-neutral-200 dark:border-neutral-800 bg-neutral-105 dark:bg-neutral-950 overflow-hidden">
+                  <div className="relative aspect-video w-full border-b border-neutral-200 dark:border-neutral-800 bg-neutral-105 dark:bg-neutral-950 overflow-hidden">
+                    {active.images && active.images.length > 0 ? (
                       <ProjectCarousel images={active.images} />
-                    </div>
-                  )}
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-neutral-850 to-neutral-950 flex items-center justify-center relative">
+                        <span className="text-[9px] font-mono text-neutral-500 font-semibold tracking-widest uppercase">Project Preview</span>
+                        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,rgba(139,92,246,0.1),transparent_100%)]" />
+                      </div>
+                    )}
+                  </div>
 
                   {/* Expanded Header Bar */}
                   <div className="p-6 pb-4">
@@ -302,7 +307,7 @@ export const ProjectsSection = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
-                      className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed whitespace-pre-wrap"
+                      className="text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed whitespace-pre-wrap max-h-40 overflow-y-auto pr-2 thin-scrollbar"
                     >
                       {active.detailedDescription}
                     </motion.p>

@@ -157,3 +157,19 @@
 .shadow-glow {
   text-shadow: 0 0 30px rgba(139, 92, 246, 0.4), 0 0 10px rgba(249, 115, 22, 0.2);
 }
+
+/* Thin Scrollbar for description boxes */
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.thin-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(139, 92, 246, 0.3);
+  border-radius: 2px;
+  border: none;
+}
+.thin-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(139, 92, 246, 0.5);
+}

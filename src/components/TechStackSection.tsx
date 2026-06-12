@@ -5,15 +5,15 @@ import * as TbIcons from "react-icons/tb";
 import { ScrollReveal } from "./ui/scroll-reveal";
 import { API_BASE } from "../lib/api";
 
-const getTechIcon = (name: string): React.ReactNode => {
+const getTechIcon = (name: string, size = 16): React.ReactNode => {
   if (name.startsWith("Tb")) {
     const IconComponent = (TbIcons as any)[name];
-    if (IconComponent) return React.createElement(IconComponent, { size: 20 });
+    if (IconComponent) return React.createElement(IconComponent, { size });
   } else {
     const IconComponent = (SiIcons as any)[name];
-    if (IconComponent) return React.createElement(IconComponent, { size: 20 });
+    if (IconComponent) return React.createElement(IconComponent, { size });
   }
-  return React.createElement(TbIcons.TbBolt, { size: 20 });
+  return React.createElement(TbIcons.TbBolt, { size });
 };
 
 interface TechSkill {
@@ -128,7 +128,7 @@ export const TechStackSection = () => {
         <ScrollReveal y={30} delay={0.1} scale={0.98}>
           <motion.div
             layout
-            className="flex flex-wrap justify-center gap-3.5 max-w-7xl mx-auto min-h-[140px]"
+            className="flex flex-wrap justify-center gap-2 md:gap-3.5 max-w-7xl mx-auto min-h-[140px] max-h-[260px] overflow-y-auto thin-scrollbar md:max-h-none md:overflow-visible py-2 px-1"
           >
           <AnimatePresence mode="popLayout">
             {filteredSkills.map((skill, index) => (
@@ -161,14 +161,14 @@ export const TechStackSection = () => {
                   )}
                 </AnimatePresence>
                 <div
-                  className={`group flex items-center gap-2.5 px-4 py-2 rounded-xl border border-neutral-200/60 dark:border-white/5 bg-white/40 dark:bg-neutral-900/40 backdrop-blur-sm hover:border-neutral-300 dark:hover:border-neutral-800 transition-all duration-300 relative z-10 cursor-pointer ${skill.hoverGlow}`}
+                  className={`group flex items-center gap-1.5 md:gap-2.5 px-2.5 py-1.5 md:px-4 md:py-2 rounded-xl border border-neutral-200/60 dark:border-white/5 bg-white/40 dark:bg-neutral-900/40 backdrop-blur-sm hover:border-neutral-300 dark:hover:border-neutral-800 transition-all duration-300 relative z-10 cursor-pointer ${skill.hoverGlow}`}
                 >
                   {/* SVG Icon with desaturation filter */}
-                  <div className="w-5 h-5 flex items-center justify-center filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
-                    {getTechIcon(skill.iconName)}
+                  <div className="w-4 h-4 md:w-5 md:h-5 flex items-center justify-center filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+                    {getTechIcon(skill.iconName, 16)}
                   </div>
                   {/* Label */}
-                  <span className="text-xs font-bold text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-850 dark:group-hover:text-white transition-colors tracking-wide">
+                  <span className="text-[10px] md:text-xs font-bold text-neutral-500 dark:text-neutral-400 group-hover:text-neutral-850 dark:group-hover:text-white transition-colors tracking-wide">
                     {skill.name}
                   </span>
                 </div>
